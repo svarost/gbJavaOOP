@@ -5,6 +5,8 @@ public class Perishable extends Product {
 
     public Perishable(String name, double cost, Date expireDate) {
         super(name, cost);
+        Date tempDate = expireDate;
+        expireDate.setYear(tempDate.getYear() - 1900);
         this.expireDate = expireDate;
     }
 
