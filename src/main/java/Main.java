@@ -21,7 +21,8 @@ public class Main {
         System.out.println(machine.findProduct("Алёнка"));
         System.out.println(machine.findProduct("Пиво"));
         System.out.println("__________________________________");
-        System.out.println("продан: " + machine.sellProduct(machine.findProduct("Twix").get(0)));
+        System.out.println("Продан: " + machine.sellProduct(machine.findProduct("Twix").get(0)));
+        System.out.println("Продан: " + machine.sellProduct(machine.findProduct("Колокольчик").get(0)));
         System.out.println("__________________________________");
         System.out.println(machine);
 

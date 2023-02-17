@@ -1,7 +1,7 @@
-import java.util.Date;
+import java.sql.Date;
 
 public class Perishable extends Product {
-    private Date expireDate = new Date();
+    private Date expireDate;
 
     public Perishable(String name, double cost, Date expireDate) {
         super(name, cost);
