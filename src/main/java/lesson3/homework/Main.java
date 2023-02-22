@@ -6,10 +6,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         MyList<String> strLst = new MyList<>();
-        strLst.add("Первый");
-        strLst.add("Второй");
-        strLst.add("Третий");
-        strLst.add("Четверный");
-        strLst.add("Пятый");
+        strLst.add("РџРµСЂРІС‹Р№");
+        strLst.add("Р’С‚РѕСЂРѕР№");
+        strLst.add("РўСЂРµС‚РёР№");
+        strLst.add("Р§РµС‚РІРµСЂРЅС‹Р№");
+        strLst.add("РџСЏС‚С‹Р№");
+
+        System.out.println(strLst);
     }
 }

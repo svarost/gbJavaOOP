@@ -19,16 +19,23 @@ public class MyList<E> implements Iterable<E> {
 
     public int size() {return nodeCounter;}
 
-
-
     @Override
     public Iterator<E> iterator() {
         return new MyListIterator(node);
     }
 
+    @Override
+    public String toString() {
+        return "MyList{" +
+                "node=" + node +
+                ", nodeCounter=" + nodeCounter +
+                '}';
+    }
+
     private class Node<E> {
         private E element;
         private Node<E> next = null;
+        private Node<E> previous = null;
 
         Node() {
         }
@@ -46,7 +53,11 @@ public class MyList<E> implements Iterable<E> {
                 next.add(element);
             } else {
                 next = new Node<>(element);
+                next.setPrevious(this);
             }
+        }
+        public void setPrevious(Node<E> item) {
+            this.previous = item;
         }
 
         E getElement() {
@@ -54,7 +65,16 @@ public class MyList<E> implements Iterable<E> {
         }
 
         boolean isNext() {
-            return (next == null);
+            return (next != null);
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "element=" + element +
+                    ", next=" + next +
+//                    ", previous=" + previous +
+                    '}';
         }
     }
 
@@ -82,6 +102,5 @@ public class MyList<E> implements Iterable<E> {
             else current = current.next;
             return current.getElement();
         }
-
     }
 }
