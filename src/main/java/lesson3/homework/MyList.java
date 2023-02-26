@@ -1,7 +1,6 @@
 package lesson3.homework;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class MyList<E> implements Iterable<E> {
     private Node<E> node = null;
@@ -121,7 +120,7 @@ public class MyList<E> implements Iterable<E> {
         private boolean isFirst = true;
 
         public MyListIterator(Node<E> node) {
-            current = node;
+            this.current = node;
         }
 
         @Override

@@ -1,5 +1,6 @@
-import java.awt.*;
-import java.util.*;
+package lesson3;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,19 +10,12 @@ public class Personal implements Iterable<User> {
 
     public Personal(User[] users) {
         this.users = users;
-    }
-
-    public List<User> toList() {
-        List<User> users = new ArrayList<User>();
-        for (User user : this) {
-            users.add(user);
-        }
-        return users;
+        users.getClass();
     }
 
     @Override
     public Iterator<User> iterator() {
-        return new PersonalIterator();
+        return null;
     }
 
     protected class PersonalIterator implements Iterator<User> {
@@ -39,6 +33,4 @@ public class Personal implements Iterable<User> {
         }
     }
 }
-
-
 
