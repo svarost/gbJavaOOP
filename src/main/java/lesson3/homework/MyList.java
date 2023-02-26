@@ -17,34 +17,25 @@ public class MyList<E> implements Iterable<E> {
         nodeCounter++;
     }
 
-    public int size() {return nodeCounter;}
+    public int size() {
+        return nodeCounter;
+    }
 
     @Override
     public String toString() {
         StringBuilder myListOut = new StringBuilder();
-        myListOut.append("MyList{");
-        while (iterator().hasNext()) {
-//            System.out.println(iterator().hasNext());
-//            System.out.println(iterator().next());
-            E item = iterator().next();
-            myListOut.append(item + ", ");
+        Iterator<E> iterator = iterator();
+        myListOut.append("{");
+        while (iterator.hasNext()) {
+            myListOut.append(iterator.next().toString());
+            if (iterator.hasNext()) {
+                myListOut.append(", ");
+            }
         }
-        return "MyList{" +
-                "node=" + node +
-                ", nodeCounter=" + nodeCounter +
-                '}';
+        myListOut.append("}");
+        return myListOut.toString();
     }
 
-    //    @Override
-//    public String toString() {
-//        StringBuilder myListOut = new StringBuilder();
-//        myListOut.append("MyList{");
-//        for (E item : this) {
-//            myListOut.append(item + ", ");
-//        }
-//
-//        return myListOut.toString();
-//    }
 
     @Override
     public Iterator<E> iterator() {
@@ -78,8 +69,6 @@ public class MyList<E> implements Iterable<E> {
                 next.add(element);
             } else {
                 next = new Node<>(element, this);
-
-//                System.out.println(next.prev);
             }
         }
 
@@ -106,8 +95,8 @@ public class MyList<E> implements Iterable<E> {
         public String toString() {
             return "Node{" +
                     "element=" + element +
-                    ", next=" + next.getElement() +
-                    ", prev=" + (isPrev()? prev.getElement() : "None") +
+                    ", next=" + (next == null ? "null" : next.getElement()) +
+                    ", prev=" + (isPrev() ? prev.getElement() : "None") +
                     '}';
         }
     }
@@ -116,7 +105,6 @@ public class MyList<E> implements Iterable<E> {
     private class MyListIterator implements Iterator<E> {
 
         private Node<E> current;
-
         private boolean isFirst = true;
 
         public MyListIterator(Node<E> node) {
@@ -126,18 +114,15 @@ public class MyList<E> implements Iterable<E> {
         @Override
         public boolean hasNext() {
             if (nodeCounter == 1 && isFirst) {
-                System.out.println(current);
                 return true;
             }
-            System.out.println(current);
             return current.isNext();
         }
+
         @Override
         public E next() {
             if (isFirst) isFirst = false;
             else current = current.next;
-            System.out.println("current=" + current);
-
             return current.getElement();
         }
 
