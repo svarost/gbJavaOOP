@@ -1,6 +1,7 @@
 package lesson3.homework;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class MyList<E> implements Iterable<E> {
     private Node<E> node = null;
@@ -19,7 +20,32 @@ public class MyList<E> implements Iterable<E> {
 
     public int size() {return nodeCounter;}
 
+    @Override
+    public String toString() {
+        StringBuilder myListOut = new StringBuilder();
+        myListOut.append("MyList{");
+        while (iterator().hasNext()) {
+//            System.out.println(iterator().hasNext());
+//            System.out.println(iterator().next());
+            E item = iterator().next();
+            myListOut.append(item + ", ");
+        }
+        return "MyList{" +
+                "node=" + node +
+                ", nodeCounter=" + nodeCounter +
+                '}';
+    }
 
+    //    @Override
+//    public String toString() {
+//        StringBuilder myListOut = new StringBuilder();
+//        myListOut.append("MyList{");
+//        for (E item : this) {
+//            myListOut.append(item + ", ");
+//        }
+//
+//        return myListOut.toString();
+//    }
 
     @Override
     public Iterator<E> iterator() {
@@ -29,23 +55,32 @@ public class MyList<E> implements Iterable<E> {
     private class Node<E> {
         private E element;
         private Node<E> next = null;
+        private Node<E> prev = null;
 
         Node() {
         }
 
         Node(E element) {
+            set(element);
+        }
+
+        public Node(E element, Node<E> prev) {
             this.element = element;
+            this.prev = prev;
         }
 
         void set(E element) {
             this.element = element;
         }
 
+
         void add(E element) {
             if (isNext()) {
                 next.add(element);
             } else {
-                next = new Node<>(element);
+                next = new Node<>(element, this);
+
+//                System.out.println(next.prev);
             }
         }
 
@@ -53,8 +88,28 @@ public class MyList<E> implements Iterable<E> {
             return element;
         }
 
+        String getPrev() {
+            if (!isPrev()) {
+                return "None";
+            }
+            return (String) prev.getElement();
+        }
+
         boolean isNext() {
-            return (next == null);
+            return (next != null);
+        }
+
+        boolean isPrev() {
+            return (prev != null);
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "element=" + element +
+                    ", next=" + next.getElement() +
+                    ", prev=" + (isPrev()? prev.getElement() : "None") +
+                    '}';
         }
     }
 
@@ -66,20 +121,24 @@ public class MyList<E> implements Iterable<E> {
         private boolean isFirst = true;
 
         public MyListIterator(Node<E> node) {
-            this.current = node;
+            current = node;
         }
 
         @Override
         public boolean hasNext() {
             if (nodeCounter == 1 && isFirst) {
+                System.out.println(current);
                 return true;
             }
+            System.out.println(current);
             return current.isNext();
         }
         @Override
         public E next() {
             if (isFirst) isFirst = false;
             else current = current.next;
+            System.out.println("current=" + current);
+
             return current.getElement();
         }
 
