@@ -2,9 +2,9 @@ package notebook.data;
 
 public class Note {
     static Integer count;
-    Integer id;
-    String title;
-    String text;
+    private Integer id;
+    private String title;
+    private String text;
 
     public Note() {
         if (count != null) {
@@ -28,5 +28,25 @@ public class Note {
         if (count.equals(null)) {
             id = 0;
         } else id += 1;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

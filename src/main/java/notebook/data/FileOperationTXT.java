@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOperationTXT implements FileOperation {
-    private File dir = new File(getClass().getClassLoader().getResource("txtDir").getFile());
-    private String fileName;
+    private String dirName;
 
-    public FileOperationTXT(String fileName) {
-        this.fileName = "" + fileName;
-        try (FileWriter writer = new FileWriter(fileName, true)) {
+    public FileOperationTXT(String dirName) {
+        this.dirName = String.valueOf(new File(getClass().getClassLoader().getResource(dirName).getFile()));
+        try (FileWriter writer = new FileWriter(dirName, true)) {
             writer.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -18,13 +17,12 @@ public class FileOperationTXT implements FileOperation {
     }
 
     @Override
-    public String readAllLines() {
+    public String readFile(File file) {
         List<String> lines = new ArrayList<>();
         try {
-            File file = new File(fileName);
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
-            String line = reader.readLine();
+            String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
@@ -37,19 +35,15 @@ public class FileOperationTXT implements FileOperation {
         return String.join(System.lineSeparator(), lines);
     }
 
+
     @Override
-    public void saveAllLines(List<String> lines) {
-        try (FileWriter writer =  new FileWriter(fileName, false)) {
-            for (String line : lines) {
-                writer.write(line);
-            }
+    public void saveFile(Note note) {
+        try (FileWriter writer =
+                     new FileWriter(dirName + note.getTitle() + ".txt", false)) {
+            writer.write(note.getText());
             writer.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public List<String> listNotes() {
-
     }
 }

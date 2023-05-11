@@ -1,8 +1,9 @@
 package notebook.data;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 public interface FileOperation {
-    String readAllLines();
-    void saveAllLines(List<String> lines);
+    String readFile(File file);
+    void  saveFile(Note note) throws IOException;
 }
